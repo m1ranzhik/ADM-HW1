@@ -107,7 +107,6 @@ if __name__ == '__main__':
         student_marks[name] = scores
     query_name = input()
 
-    # average of the marks
     average_marks = sum(student_marks[query_name]) / len(student_marks[query_name])
 
     print(f"{average_marks:.2f}")
@@ -244,7 +243,6 @@ print_door_mat(n, m)
 
 # String Formatting
 def print_formatted(n):
-    # width needed for binary representation of the largest number
     width = len(bin(n)[2:])
 
     for i in range(1, n + 1):
@@ -286,7 +284,6 @@ if __name__ == '__main__':
 
 # Symmetric Difference
 def symmetric_difference(set_a, set_b):
-    # Calculate the symmetric difference
     sym_diff = set_a.symmetric_difference(set_b)
     sorted_diff = sorted(sym_diff)
 
@@ -311,8 +308,7 @@ def calculate_happiness(array, liked_set, disliked_set):
         elif number in disliked_set:
             happiness -= 1
 
-    return happiness  # Return the final happiness value
-
+    return happiness  
 
 if __name__ == '__main__':
     n, m = map(int, input().split())
@@ -399,24 +395,20 @@ if __name__ == '__main__':
         elif operation_name == 'difference_update':
             initial_set.difference_update(other_set)
 
-    # Output the sum of the remaining elements in the set
     print(sum(initial_set))
 
 # The Captain's Room
 if __name__ == '__main__':
     group_size = int(input())
     room_numbers = list(map(int, input().split()))
-    # Dictionary to count occurrences of each room number
     room_count = {}
 
-    # Count occurrences of each room number
     for room in room_numbers:
         if room in room_count:
             room_count[room] += 1
         else:
             room_count[room] = 1
 
-    # Find the room number that occurs only once
     for room, count in room_count.items():
         if count == 1:
             captain_room = room
@@ -431,15 +423,11 @@ if __name__ == '__main__':
     n = int(input())
     shoe_sizes = list(map(int, input().split()))
 
-    # Create a Counter to count the occurrences of each shoe size
     shoe_inventory = Counter(shoe_sizes)
-
-    # Read the number of customers
+    
     m = int(input())
 
     total_earnings = 0
-
-    # Process each customer request
     for _ in range(m):
         desired_size, price = map(int, input().split())
         if shoe_inventory[desired_size] > 0:
@@ -457,7 +445,6 @@ def main():
         a, b = values
 
         try:
-            # Perform integer division
             result = int(a) // int(b)
             print(result)
         except ZeroDivisionError as e:
@@ -479,7 +466,6 @@ def main():
         subject_marks = list(map(float, input().split()))
         marks.append(subject_marks)
 
-    # Use zip to group the marks of each student
     averages = [sum(student_marks) / m for student_marks in zip(*marks)]
 
     for avg in averages:
@@ -489,7 +475,165 @@ def main():
 if __name__ == "__main__":
     main()
 
-# ginortS
+#Arrays 
+import numpy
+
+def arrays(arr):
+    # Convert the input list to a NumPy array with float type
+    np_array = numpy.array(arr, dtype=float)
+    # Reverse the NumPy array
+    reversed_array = np_array[::-1]
+    return reversed_array
+arr = input().strip().split(' ')
+result = arrays(arr)
+print(result)
+# Transpose and Flatten 
+import numpy as np
+
+def transpose_and_flatten():
+    n, m = map(int, input().strip().split())
+    a = np.array([input().strip().split() for _ in range(n)], dtype=int)
+    
+    trans = a.T
+    flat = a.flatten()
+    
+    print(trans)
+    print(flat)
+
+transpose_and_flatten()
+
+# Shape and Reshape
+import numpy
+arr = list(map(int, input().split()))
+my_array = numpy.reshape(arr,(3,3))
+print(my_array)
+
+# Concatenate 
+import numpy as np
+
+n, m, p = map(int, input().split())
+
+array1 = np.array([input().split() for _ in range(n)], int)
+array2 = np.array([input().split() for _ in range(m)], int)
+
+result = np.concatenate((array1, array2), axis=0)
+print(result)
+
+# Zeros and Ones
+import numpy as np
+
+shape = tuple(map(int, input().split()))
+
+zeros_array = np.zeros(shape, dtype=int)
+print(zeros_array)
+
+ones_array = np.ones(shape, dtype=int)
+print(ones_array)
+
+# Eye and Identity 
+import numpy as np
+np.set_printoptions(legacy='1.13')  
+n, m = map(int, input().split())
+
+print(np.eye(n, m))
+
+# Array Mathematics 
+import numpy as np
+
+n, m = map(int, input().split())
+
+A = np.array([input().split() for _ in range(n)], dtype=int)
+B = np.array([input().split() for _ in range(n)], dtype=int)
+
+print(A + B)       
+print(A - B)          
+print(A * B)         
+print(A // B)        
+print(A % B)         
+print(A ** B)       
+
+# Floor, Ceil and Rint
+import numpy as np
+
+np.set_printoptions(legacy='1.13')
+a = np.array(input().split(), dtype=float)
+
+fl = np.floor(a)
+cl = np.ceil(a)
+rin = np.rint(a)
+
+print(fl, cl, rin, sep = '\n')
+
+# Sum and Prod
+import numpy as np
+
+n, m = map(int, input().split())
+a = np.array([input().split() for _ in range(n)], dtype=int)
+
+summary = np.sum(a, axis = 0)
+product = np.prod(summary)
+
+print(product)
+
+# Min and Max
+import numpy as np
+n, m = map(int, input().split())  
+a = np.array([list(map(int, input().split())) for _ in range(n)])
+
+minimum = np.min(a, axis = 1)
+maximum = np.max(minimum)
+
+print(maximum)
+
+# Mean, Var and Std
+import numpy as np
+
+n, m = map(int, input().split())
+a = np.array([input().split() for _ in range (n)], dtype = int)
+
+first = np.mean(a, axis = 1)
+second = np.var(a, axis = 0)
+third = np.std(a, axis = None)
+
+print(first)
+print(second)
+print(f"{third:.11f}")
+
+# Dot and Cross 
+import numpy as np
+
+n = int(input())
+a = np.array([input().split() for _ in range (n)], dtype = int)
+b = np.array([input().split() for _ in range (n)], dtype = int)
+
+print(np.dot(a, b))
+
+# Inner and Outer 
+import numpy as np
+
+a = np.array(input().split(), dtype= int)
+b = np.array(input().split(), dtype= int)
+
+print(np.inner(a, b))
+print(np.outer(a, b))
+
+# Polynomials 
+import numpy as np
+a = list(map(float, input().split()))
+n = float(input())
+
+print(np.polyval(a, n))
+
+# Linear Algebra
+import numpy as np
+n = int(input())
+a = np.array([input().split() for _ in range(n)], dtype = float)
+
+det_a = np.linalg.det(a)
+print(round(det_a, 2))
+
+
+
 
 
 
