@@ -111,6 +111,19 @@ if __name__ == '__main__':
 
     print(f"{average_marks:.2f}")
 
+# Power - Mod Power
+if __name__ == '__main__':
+    f_number = int(input())
+    power = int(input())
+    s_number = int(input())
+
+    result = pow(f_number, power)
+    modulus = result - s_number * (result // s_number )
+
+    print(result)
+    print(modulus)
+
+
 # Lists
 if __name__ == '__main__':
     N = int(input())
@@ -170,8 +183,8 @@ if __name__ == '__main__':
 
 # String Split and Join
 def split_and_join(line):
-    words = line.split()  # Split the string by spaces
-    result = "-".join(words)  # Join the words with a hyphen '-'
+    words = line.split()
+    result = "-".join(words)
     return result
 
 if __name__ == '__main__':
@@ -206,6 +219,15 @@ def count_substring(string, sub_string):
             count += 1
     return count
 
+# String Validators
+if __name__ == '__main__':
+    s = input()
+
+    print(any(char.isalnum() for char in s))
+    print(any(char.isalpha() for char in s))
+    print(any(char.isdigit() for char in s))
+    print(any(char.islower() for char in s))
+    print(any(char.isupper() for char in s))
 
 if __name__ == '__main__':
     string = input().strip()
@@ -218,7 +240,7 @@ if __name__ == '__main__':
 import textwrap
 
 def wrap(string, max_width):
-    return
+    return textwrap.fill(string, max_width)
 
 if __name__ == '__main__':
     string, max_width = input(), int(input())
@@ -262,6 +284,10 @@ import re
 import sys
 
 def solve(s):
+    s = s.split(' ')
+    for i in range(len(s)):
+        s[i] = s[i].capitalize()
+    return ' '.join(s)
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
@@ -431,8 +457,8 @@ if __name__ == '__main__':
     for _ in range(m):
         desired_size, price = map(int, input().split())
         if shoe_inventory[desired_size] > 0:
-            total_earnings += price  # Add the price to total earnings
-            shoe_inventory[desired_size] -= 1  # Decrease the available stock
+            total_earnings += price
+            shoe_inventory[desired_size] -= 1
 
     print(total_earnings)
 
@@ -471,7 +497,6 @@ def main():
     for avg in averages:
         print(f"{avg:.1f}")
 
-
 if __name__ == "__main__":
     main()
 
@@ -479,14 +504,13 @@ if __name__ == "__main__":
 import numpy
 
 def arrays(arr):
-    # Convert the input list to a NumPy array with float type
     np_array = numpy.array(arr, dtype=float)
-    # Reverse the NumPy array
     reversed_array = np_array[::-1]
     return reversed_array
 arr = input().strip().split(' ')
 result = arrays(arr)
 print(result)
+
 # Transpose and Flatten 
 import numpy as np
 
@@ -586,18 +610,18 @@ maximum = np.max(minimum)
 print(maximum)
 
 # Mean, Var and Std
-import numpy as np
+import numpy
 
 n, m = map(int, input().split())
-a = np.array([input().split() for _ in range (n)], dtype = int)
-
-first = np.mean(a, axis = 1)
-second = np.var(a, axis = 0)
-third = np.std(a, axis = None)
-
-print(first)
-print(second)
-print(f"{third:.11f}")
+lst = [list(map(int, input().split())) for i in range(n)]
+numbers = numpy.array(lst)
+print(numpy.mean(numbers, axis = 1))
+print(numpy.var(numbers, axis = 0))
+std_value = numpy.std(numbers, axis=None)
+if std_value == 0:
+    print(0.0)
+else:
+    print(f"{std_value:.11f}")
 
 # Dot and Cross 
 import numpy as np
@@ -625,16 +649,818 @@ n = float(input())
 print(np.polyval(a, n))
 
 # Linear Algebra
-import numpy as np
+import numpy
+
 n = int(input())
-a = np.array([input().split() for _ in range(n)], dtype = float)
 
-det_a = np.linalg.det(a)
-print(round(det_a, 2))
+numbers = numpy.array([list(map(float, input().split())) for i in range(n)])
+det = numpy.linalg.det(numbers)
 
+if abs(det - round(det)) < 1e-10:
+    print(f"{round(det):.1f}")
+else:
+    print(f"{det:.2f}")
 
+# Set .discard(), .remove() & .pop()
+def sets(numbers, lst):
+    for i in range(len(lst)):
+        if lst[i][0] == 'remove':
+            numbers.remove(int(lst[i][1]))
+        elif lst[i][0] == 'discard':(
+            numbers.discard(int(lst[i][1])))
+        elif lst[i][0] == 'pop':
+            numbers.pop()
+    return sum(numbers)
 
+if __name__ == '__main__':
+    n = int(input())
+    numbers = set(map(int, input().split()))
+    n_commands = int(input())
+    lst = []
+    for i in range(n_commands):
+        command = input().split()
+        lst.append(command)
 
+    print(sets(numbers, lst))
 
+# Check Subset
+def sets(set1, set2):
+    if len(set1) > len(set2):
+        return False
+    counter = 0
+    lst1 = list(set1)
+    lst2 = list(set2)
+    for i in range(len(lst1)):
+        if lst1[i] in lst2:
+            counter += 1
+    if counter == len(lst1):
+        return True
+    else:
+        return False
 
+if __name__ == '__main__':
+    tests = int(input())
+    for i in range(tests):
+        a = int(input())
+        set1 = set(map(int, input().split()))
+        b = int(input())
+        set2 = set(map(int, input().split()))
+        print(sets(set1, set2))
 
+# DefaultDict Tutorial
+from collections import defaultdict
+
+if __name__ == "__main__":
+    n, m = map(int, input().split())
+    d = defaultdict(list)
+
+    # Read group A
+    for i in range(1, n + 1):
+        word = input().strip()
+        d[word].append(i)
+
+    # Read group B and print results
+    for _ in range(m):
+        word = input().strip()
+        if word in d:
+            print(' '.join(map(str, d[word])))
+        else:
+            print(-1)
+
+# Check Strict Superset
+if __name__ == '__main__':
+    A = set(map(int, input().split()))
+    n = int(input())
+    result = True
+
+    for _ in range(n):
+        other_set = set(map(int, input().split()))
+        if not (A > other_set):
+            result = False
+            break
+
+    print(result)
+
+# Collections.namedtuple()
+from collections import defaultdict
+
+if __name__ == "__main__":
+    n = int(input())
+    columns = input().split()
+    index = 0
+
+    for i in range(len(columns)):
+        if columns[i] == 'MARKS':
+            index = i
+
+    d = defaultdict(list)
+    for i in range(n):
+        students = input().split()
+        d[index].append(int(students[index]))
+
+    counter = [sum(values) for key, values in d.items()]
+    print(f"{counter[0] / len(d[index]):.2f}")
+
+# Collections.OrderedDict()
+from collections import defaultdict
+
+if __name__ == "__main__":
+    n = int(input())
+    d = defaultdict(list)
+    numbers = '0123456789'
+    for i in range(n):
+        item = input()
+        for j in range(len(item)):
+            if item[j] in numbers:
+                d[item[:j]].append(int(item[j:]))
+                break
+    sums = {key: sum(values) for key, values in d.items()}
+    for key, values in sums.items():
+        print(key, values, sep='')
+
+# Word Order
+from collections import defaultdict
+
+if __name__ == "__main__":
+    n = int(input())
+    d = defaultdict()
+    distinct = 1
+    d[input()] = 1
+    for i in range(n - 1):
+        word = input()
+        if not word in d:
+            d[word] = 1
+            distinct += 1
+        else:
+            d[word] += 1
+    print(distinct)
+    for key, values in d.items():
+        print(values, end=' ')
+
+# Collections.deque()
+from collections import deque
+
+if __name__ == "__main__":
+    n = int(input())
+    d = deque()
+    for i in range(n):
+        command = input().split()
+        if command[0] == 'extend':
+            for j in command[1]:
+                d.append(int(j))
+        elif command[0] == 'extendleft':
+            for j in command[1]:
+                d.appendleft(int(j))
+        elif command[0] == 'append':
+            d.append(int(command[1]))
+        elif command[0] == 'appendleft':
+            d.appendleft(int(command[1]))
+        elif command[0] == 'clear':
+            d.clear()
+        elif command[0] == 'count':
+            d.count(int(command[1]))
+        elif command[0] == 'pop':
+            d.pop()
+        elif command[0] == 'popleft':
+            d.popleft()
+        elif command[0] == 'remove':
+            d.remove(int(command[1]))
+        elif command[0] == 'reverse':
+            d.reverse()
+        elif command[0] == 'rotate':
+            d.rotate(int(command[1]))
+    print(*d)
+
+# Piling Up!
+from collections import deque
+
+if __name__ == "__main__":
+    n = int(input())
+    for i in range(n):
+        flag = True
+        size = int(input())
+        numbers = list(map(int, input().split()))
+        d = deque(numbers)
+        if len(d) == 1:
+            print('Yes')
+            continue
+
+        if d[0] >= d[-1]:
+            first = d.popleft()
+        else:
+            first = d.pop()
+        while len(d) > 0:
+            if first >= d[0] and first >= d[-1]:
+                if d[0] >= d[-1]:
+                    first = d.popleft()
+                else:
+                    first = d.pop()
+            else:
+                flag = False
+                break
+        if flag:
+            print('Yes')
+        else:
+            print('No')
+
+# Company Logo
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == "__main__":
+    name = input()
+    d = dict()
+    for letter in name:
+        if not letter in d:
+            d[letter] = 1
+        else:
+            d[letter] += 1
+    counter = 0
+    while d and counter < 3:
+        max_value = max(d.values())
+        letters = sorted([key for key, values in d.items() if max_value == values])
+        for i in letters:
+            print(i, max_value)
+            del d[i]
+            counter += 1
+            if counter == 3:
+                break
+
+# Text Alignment
+thickness = int(input()) #This must be an odd number
+c = 'H'
+
+for i in range(thickness):
+    print((c*i).rjust(thickness-1)+c+(c*i).ljust(thickness-1))
+
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))
+
+for i in range((thickness+1)//2):
+    print((c*thickness*5).center(thickness*6))
+
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))
+
+for i in range(thickness):
+    print(((c*(thickness-i-1)).rjust(thickness)+c+(c*(thickness-i-1)).ljust(thickness)).rjust(thickness*6))
+
+# Alphabet Rangoli
+def print_rangoli(size):
+    alphabet = [chr(i) for i in range(97, 123)]
+
+    lines = []
+    for i in range(size):
+        s = "-".join(alphabet[i:size])
+        lines.append((s[::-1] + s[1:]).center(4 * size - 3, "-"))
+
+    print('\n'.join(lines[::-1] + lines[1:]))
+
+# The Minion Game
+def minion_game(string):
+    # your code goes here
+    vowels = 'AEIOU'
+    kevin = 0
+    stuart = 0
+    n = len(s)
+
+    for i in range(n):
+        if s[i] in vowels:
+            kevin += n - i
+        else:
+            stuart += n - i
+
+    if kevin > stuart:
+        print("Kevin", kevin)
+    elif stuart > kevin:
+        print("Stuart", stuart)
+    else:
+        print("Draw")
+
+# Merge the Tools!
+def merge_the_tools(string, k):
+    for i in range(0, len(string), k):
+        block = string[i:i+k]
+        seen = set()
+        out = []
+        for ch in block:
+            if ch not in seen:
+                seen.add(ch)
+                out.append(ch)
+        print(''.join(out))
+
+# Calendar Module
+import calendar
+
+month, day, year = map(int, input().split())
+weekday = calendar.weekday(year, month, day)
+day_name = calendar.day_name[weekday].upper()
+print(day_name)
+
+# Exceptions
+if __name__ == '__main__':
+    n = int(input())
+    for i in range(n):
+        a, b = input().split()
+        try:
+            print(int(a) // int(b))
+        except ZeroDivisionError:
+            print('Error Code: integer division or modulo by zero')
+        except ValueError:
+            if not a in '0123456789':
+                print(f"Error Code: invalid literal for int() with base 10: '{a}'")
+            else:
+                print(f"Error Code: invalid literal for int() with base 10: '{b}'")
+
+# Map and Lambda Function
+cube = lambda x: x**3
+def fibonacci(n):
+    lst = []
+    a, b = 0, 1
+    for i in range(n):
+        lst.append(a)
+        a, b = b, a + b
+    return lst
+
+if __name__ == '__main__':
+    n = int(input())
+    print(list(map(cube, fibonacci(n))))
+
+# Zipped!
+n, x = input().split()
+
+lst = [map(float, input().split()) for _ in range(int(x))]
+grades = list(zip(*lst))
+
+for i in range(int(n)):
+    print(f'{sum(grades[i]) / len(grades[i]):.1f}')
+
+# Athlete Sort
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    n, x = input().split()
+    lst = [list(map(int, input().split())) for _ in range(int(n))]
+    k = int(input())
+
+    sorted_list = sorted(lst, key=lambda x: x[k])
+    for i in range(int(n)):
+        print(*sorted_list[i])
+
+# ginortS
+str = input()
+
+upper = ''
+lower = ''
+odd = ''
+even = ''
+
+for symbol in str:
+    if symbol.isupper():
+        upper += symbol
+    elif symbol.islower():
+        lower += symbol
+    else:
+        if int(symbol) % 2 != 0:
+            odd += symbol
+        else:
+            even += symbol
+
+print("".join(sorted(lower)), "".join(sorted(upper)), "".join(sorted(odd)), "".join(sorted(even)), sep='')
+
+# Recursive Digit Sum
+import math
+import os
+import random
+import re
+import sys
+
+def superDigit(n, k = 1):
+    number = str(sum(list(map(int, n))) * k)
+    if len(number) > 1:
+        return superDigit(number)
+    else:
+        return number
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    first_multiple_input = input().rstrip().split()
+    n = first_multiple_input[0]
+    k = int(first_multiple_input[1]) if len(first_multiple_input) > 1 else 1
+    result = superDigit(n, k)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+# Time Delta
+import math
+import os
+import random
+import re
+import sys
+from datetime import datetime, timedelta
+
+def time_delta(t1, t2):
+    # Define the timestamp format (matches the problem exactly)
+    fmt = "%a %d %b %Y %H:%M:%S %z"
+    dt1 = datetime.strptime(t1, fmt)
+    dt2 = datetime.strptime(t2, fmt)
+    diff = abs(int((dt1 - dt2).total_seconds()))
+    return str(diff)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for _ in range(t):
+        t1 = input().strip()
+        t2 = input().strip()
+        fptr.write(time_delta(t1, t2) + '\n')
+    fptr.close()
+
+# Detect Floating Point Number
+n = int(input())
+
+for _ in range(n):
+    number = input()
+    if number != '0':
+        try:
+            num = float(number)
+            print(True)
+        except ValueError:
+            print(False)
+    else:
+        print(False)
+
+# Re.split()
+regex_pattern = r"[.,]"
+
+import re
+print("\n".join(re.split(regex_pattern, input())))
+
+# Group(), Groups() & Groupdict()
+import re
+
+s = input()
+match = re.search(r'([a-zA-Z0-9])\1+', s)
+
+if match:
+    print(match.group(1))
+else:
+    print(-1)
+
+# Re.findall() & Re.finditer()
+import re
+
+s = input().strip()
+pattern = r'(?<=[qwrtypsdfghjklzxcvbnm])([aeiou]{2,})(?=[qwrtypsdfghjklzxcvbnm])'
+
+matches = re.findall(pattern, s, flags=re.I)
+print('\n'.join(matches) if matches else '-1')
+
+# Re.start() & Re.end()
+import re
+
+S = input()
+k = input()
+
+pattern = f"(?={k})"
+matches = list(re.finditer(pattern, S))
+
+if not matches:
+    print("(-1, -1)")
+else:
+    for m in matches:
+        print(f"({m.start()}, {m.start() + len(k) - 1})")
+
+# Regex Substitution
+import re
+
+n = int(input())
+for _ in range(n):
+    line = input()
+    line = re.sub(r'(?<= )&&(?= )', 'and', line)
+    line = re.sub(r'(?<= )\|\|(?= )', 'or', line)
+    print(line)
+
+# Standardize Mobile Number Using Decorators
+def wrapper(f):
+    def fun(l):
+        formatted = []
+        for num in l:
+            num = num[-10:]
+            formatted.append(f"+91 {num[:5]} {num[5:]}")
+        return f(formatted)
+    return fun
+
+@wrapper
+def sort_phone(l):
+    print(*sorted(l), sep='\n')
+
+if __name__ == '__main__':
+    l = [input() for _ in range(int(input()))]
+    sort_phone(l)
+
+# Decorators 2 - Name Directory
+import operator
+
+def person_lister(f):
+    def inner(people):
+        people.sort(key=lambda x: int(x[2]))
+        return [f(person) for person in people]
+    return inner
+
+@person_lister
+def name_format(person):
+    return ("Mr. " if person[3] == "M" else "Ms. ") + person[0] + " " + person[1]
+
+if __name__ == '__main__':
+    people = [input().split() for i in range(int(input()))]
+    print(*name_format(people), sep='\n')
+
+# Insertion Sort - Part 1
+import math
+import os
+import random
+import re
+import sys
+
+def insertionSort1(n, arr):
+    number = arr[n - 1]
+    for i in range(1, n):
+        if number < arr[n - 1 - i]:
+            arr[n - i] = arr[n - 1 - i]
+            print(*arr)
+        else:
+            arr[n - i] = number
+            print(*arr)
+            break
+    else:
+        arr[0] = number
+        print(*arr)
+if __name__ == '__main__':
+    n = int(input().strip())
+    arr = list(map(int, input().rstrip().split()))
+    insertionSort1(n, arr)
+
+# Insertion Sort - Part 2
+import math
+import os
+import random
+import re
+import sys
+
+def insertionSort2(n, arr):
+    for i in range(1, n):
+        for j in range(i - 1, -1, -1):
+            if arr[i] < arr[j]:
+                arr[i], arr[j] = arr[j], arr[i]
+                i -= 1
+        print(*arr)
+
+if __name__ == '__main__':
+    n = int(input().strip())
+    arr = list(map(int, input().rstrip().split()))
+    insertionSort2(n, arr)
+
+# Validating Roman Numerals
+regex_pattern = r"^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
+
+import re
+print(str(bool(re.match(regex_pattern, input()))))
+
+import re
+
+# Validating phone numbers
+n = int(input())
+for _ in range(n):
+    number = input().strip()
+    if re.fullmatch(r'[789]\d{9}', number):
+        print("YES")
+    else:
+        print("NO")
+
+# Validating and Parsing Email Addresses
+import re
+
+n = int(input())
+for _ in range(n):
+    name, email_addr = input().split()
+    email_addr = email_addr[1:-1]
+    if re.match(r'^[a-zA-Z][\w\.-]*@[a-zA-Z]+\.[a-zA-Z]{1,3}$', email_addr):
+        print(f"{name} <{email_addr}>")
+
+# Hex Color Code
+import re
+
+n = int(input())
+inside = False
+pat = re.compile(r'#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?(?=[;,\s\)])')
+
+for _ in range(n):
+    line = input()
+    if '{' in line:
+        inside = True
+        continue
+    if '}' in line:
+        inside = False
+        continue
+    if inside:
+        for m in pat.findall(line):
+            print(m)
+
+# HTML Parser - Part 1
+from html.parser import HTMLParser
+import sys
+
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print(f"Start : {tag}")
+        for k, v in attrs:
+            print(f"-> {k} > {v if v is not None else 'None'}")
+
+    def handle_startendtag(self, tag, attrs):
+        print(f"Empty : {tag}")
+        for k, v in attrs:
+            print(f"-> {k} > {v if v is not None else 'None'}")
+
+    def handle_endtag(self, tag):
+        print(f"End   : {tag}")
+
+n = int(sys.stdin.readline())
+html = "".join(sys.stdin.readline() for _ in range(n))
+
+parser = MyHTMLParser()
+parser.feed(html)
+parser.close()
+
+# HTML Parser - Part 2
+from html.parser import HTMLParser
+
+class MyHTMLParser(HTMLParser):
+    def handle_comment(self, data):
+        if '\n' in data:
+            print(">>> Multi-line Comment")
+        else:
+            print(">>> Single-line Comment")
+        print(data)
+
+    def handle_data(self, data):
+        if data.strip():
+            print(">>> Data")
+            print(data)
+
+html = ""
+for i in range(int(input())):
+    html += input().rstrip()
+    html += '\n'
+
+parser = MyHTMLParser()
+parser.feed(html)
+parser.close()
+
+# Detect HTML Tags, Attributes and Attribute Values
+from html.parser import HTMLParser
+import sys
+
+class TagAttrParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print(tag)
+        for k, v in attrs:
+            print(f"-> {k} > {v}")
+
+    def handle_startendtag(self, tag, attrs):
+        print(tag)
+        for k, v in attrs:
+            print(f"-> {k} > {v}")
+
+    def handle_comment(self, data):
+        pass
+    def handle_data(self, data):
+        pass
+
+n = int(sys.stdin.readline())
+html = "".join(sys.stdin.readline() for _ in range(n))
+
+parser = TagAttrParser()
+parser.feed(html)
+parser.close()
+
+# Validating UID
+import re
+
+for _ in range(int(input())):
+    uid = input().strip()
+
+    if (len(uid) == 10 and uid.isalnum() and len(set(uid)) == 10 and len(re.findall(r'[A-Z]', uid)) >= 2 and len(re.findall(r'\d', uid)) >= 3):
+        print("Valid")
+    else:
+        print("Invalid")
+
+# Birthday Cake Candles
+import math
+import os
+import random
+import re
+import sys
+
+def birthdayCakeCandles(candles):
+    maximum = max(candles)
+    result = 0
+    for i in range(len(candles)):
+        if maximum == candles[i]:
+            result += 1
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    candles_count = int(input().strip())
+    candles = list(map(int, input().rstrip().split()))
+    result = birthdayCakeCandles(candles)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+# Viral Advertising
+import math
+import os
+import random
+import re
+import sys
+
+def viralAdvertising(n):
+    shared = 5
+    cumulative = 0
+    for i in range(n):
+        cumulative += math.floor(shared / 2)
+        shared = math.floor(shared / 2) * 3
+    return cumulative
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input().strip())
+    result = viralAdvertising(n)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+# Number Line Jumps
+import math
+import os
+import random
+import re
+import sys
+
+def kangaroo(x1, v1, x2, v2):
+    if v1 <= v2:
+        return "NO"
+    return "YES" if (x2 - x1) % (v1 - v2) == 0 else "NO"
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    first_multiple_input = input().rstrip().split()
+    x1 = int(first_multiple_input[0])
+    v1 = int(first_multiple_input[1])
+    x2 = int(first_multiple_input[2])
+    v2 = int(first_multiple_input[3])
+    result = kangaroo(x1, v1, x2, v2)
+    fptr.write(result + '\n')
+    fptr.close()
+
+# XML 1 - Find the Score
+import sys
+import xml.etree.ElementTree as etree
+
+def get_attr_number(node):
+    total = len(node.attrib)
+    for child in node:
+        total += get_attr_number(child)
+    return total
+
+if __name__ == '__main__':
+    sys.stdin.readline()
+    xml = sys.stdin.read()
+    tree = etree.ElementTree(etree.fromstring(xml))
+    root = tree.getroot()
+    print(get_attr_number(root))
+
+# XML2 - Find the Maximum Depth
+import xml.etree.ElementTree as etree
+
+maxdepth = 0
+def depth(elem, level):
+    global maxdepth
+    if level == maxdepth:
+        maxdepth += 1
+    for child in elem:
+        depth(child, level + 1)
+
+if __name__ == '__main__':
+    n = int(input())
+    xml = ""
+    for i in range(n):
+        xml =  xml + input() + "\n"
+    tree = etree.ElementTree(etree.fromstring(xml))
+    depth(tree.getroot(), -1)
+    print(maxdepth)
